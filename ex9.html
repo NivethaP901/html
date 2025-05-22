@@ -1,0 +1,16 @@
+<button onclick="findLocation()">Find Nearby Events</button>
+<p id="locationDetails"></p>
+
+<script>
+    function findLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                position => document.getElementById("locationDetails").innerText = `📍 Latitude: ${position.coords.latitude}, Longitude: ${position.coords.longitude}`,
+                error => document.getElementById("locationDetails").innerText = "⚠️ Location access denied!",
+                { enableHighAccuracy: true, timeout: 5000 }
+            );
+        } else {
+            document.getElementById("locationDetails").innerText = "❌ Geolocation not supported.";
+        }
+    }
+</script>

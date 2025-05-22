@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Feedback</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        form {
+            width: 320px;
+            margin: auto;
+            padding: 20px;
+            border: 2px solid #007BFF;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        input[type="submit"], #clearBtn {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        input[type="submit"]:hover, #clearBtn:hover {
+            background-color: #0056b3;
+        }
+        img {
+            width: 200px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <form onsubmit="showConfirmation(event)">
+        <h2>Event Feedback</h2>
+
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone" placeholder="Enter phone" required onblur="validatePhone()">
+
+        <label for="eventType">Event Type:</label>
+        <select id="eventType" onchange="displayFee()">
+            <option value="" disabled selected>Select an event</option>
+            <option value="music" data-fee="$20">Music Concert</option>
+            <option value="sports" data-fee="$15">Sports Tournament</option>
+            <option value="art" data-fee="$10">Art Exhibition</option>
+        </select>
+        <p id="eventFee"></p>
+
+        <label for="feedback">Feedback:</label>
+        <textarea id="feedback" placeholder="Share your thoughts!" rows="3" onkeyup="countChars()"></textarea>
+        <p id="charCount">Characters: 0</p>
+
+        <input type="submit" value="Submit Feedback">
+    </form>
+
+    <img src="event.jpg" alt="Event Image" onclick="enlargeImage(this)">
+
+    <script>
+        function validatePhone() {
+            let phoneInput = document.getElementById("phone").value;
+            if (!/^\d{10}$/.test(phoneInput)) {
+                alert("❌ Please enter a valid 10-digit phone number.");
+            }
+        }
+
+        function displayFee() {
+            let selectedOption = document.getElementById("eventType").selectedOptions[0];
+            document.getElementById("eventFee").innerText = "Event Fee: " + selectedOption.getAttribute("data-fee");
+        }
+
+        function showConfirmation(event) {
+            event.preventDefault();
+            alert("✅ Thank you for your feedback!");
+        }
+
+        function enlargeImage(img) {
+            img.style.transform = "scale(1.5)";
+            setTimeout(() => img.style.transform = "scale(1)", 1500);
+        }
+
+        function countChars() {
+            let count = document.getElementById("feedback").value.length;
+            document.getElementById("charCount").innerText = "Characters: " + count;
+        }
+    </script>
+
+</body>
+</html>

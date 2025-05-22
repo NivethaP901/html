@@ -1,0 +1,25 @@
+<select id="eventPreference" onchange="savePreference()">
+    <option value="" disabled selected>Select your preferred event</option>
+    <option value="music">Music Concert</option>
+    <option value="sports">Sports Tournament</option>
+    <option value="art">Art Exhibition</option>
+</select>
+<button onclick="clearPreferences()">Clear Preferences</button>
+
+<script>
+    function savePreference() {
+        localStorage.setItem("preferredEvent", document.getElementById("eventPreference").value);
+    }
+
+    function restorePreference() {
+        let savedEvent = localStorage.getItem("preferredEvent");
+        if (savedEvent) document.getElementById("eventPreference").value = savedEvent;
+    }
+
+    function clearPreferences() {
+        localStorage.clear();
+        location.reload();
+    }
+
+    window.onload = restorePreference;
+</script>
